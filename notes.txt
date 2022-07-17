@@ -1,0 +1,5 @@
+in package.json script
+adding "start": node server 
+means the application start with command node server class server.js
+and server: nodemon server
+means npm run server wll run my server class => start 
