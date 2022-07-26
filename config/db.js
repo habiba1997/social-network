@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 //This gives your application a consistent configuration interface shared among a growing list of npm modules also using node-config.
 // your configuration can be saved inside config folder => default.json file
 const config = require('config');
-
 const db = config.get('mongoURI');
 
 //The word “async” before a function means one simple thing: a function always returns a promise. Other values are wrapped in a resolved promise automatically.

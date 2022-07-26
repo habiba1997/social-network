@@ -6,10 +6,12 @@ const connectDB = require('./config/db');
 // once () called then the method is executed
 connectDB();
 
-app.get('/', (req, res) => res.send('API Running'));
+// init middleware => to parse json fron req.body in post requests
+// express.json is direct pass-through of the .json() method from the body-parser module.
+app.use(express.json());
 
 // Define Routes
-app.use('/users', require('./routes/users'));
+app.use('/user', require('./routes/users'));
 app.use('/auth', require('./routes/auth'));
 app.use('/profile', require('./routes/profile'));
 app.use('/posts', require('./routes/posts'));
