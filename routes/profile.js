@@ -27,7 +27,7 @@ router.get('/me', auth, async (req, res) => {
     res.json(profile);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).send({ msg: 'Server Error' });
   }
 });
 
@@ -99,7 +99,7 @@ router.post(
       res.json(profile);
     } catch (err) {
       console.error(err.message);
-      return res.status(500).send('Server Error');
+      return res.status(500).send({ msg: 'Server Error' });
     }
   }
 );
@@ -113,7 +113,7 @@ router.get('/', async (req, res) => {
     res.json(profiles);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).send({ msg: 'Server Error' });
   }
 });
 
@@ -131,7 +131,10 @@ router.get('/user/:user_id', async ({ params: { user_id } }, res) => {
     return res.json(profile);
   } catch (err) {
     console.error(err.message);
-    return res.status(500).json({ msg: 'Server error' });
+    if (err.kind === 'ObjectId') {
+      return res.status(400).json({ msg: 'Profile not found' });
+    }
+    return res.status(500).json({ msg: { msg: 'Server Error' } });
   }
 });
 
@@ -151,7 +154,7 @@ router.delete('/', auth, async (req, res) => {
     res.json({ msg: 'User deleted' });
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).send({ msg: 'Server Error' });
   }
 });
 
@@ -194,7 +197,7 @@ router.put(
       res.json(profile);
     } catch (err) {
       console.error(err.message);
-      res.status(500).send('Server Error');
+      res.status(500).send({ msg: 'Server Error' });
     }
   }
 );
@@ -215,7 +218,7 @@ router.delete('/experience/:exp_id', auth, async (req, res) => {
     return res.status(200).json(foundProfile);
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ msg: 'Server error' });
+    return res.status(500).json({ msg: { msg: 'Server Error' } });
   }
 });
 
@@ -257,7 +260,7 @@ router.put(
       res.json(profile);
     } catch (err) {
       console.error(err.message);
-      res.status(500).send('Server Error');
+      res.status(500).send({ msg: 'Server Error' });
     }
   }
 );
@@ -282,7 +285,7 @@ router.delete('/education/:edu_id', auth, async (req, res) => {
     return res.status(200).json(foundProfile);
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ msg: 'Server error' });
+    return res.status(500).json({ msg: { msg: 'Server Error' } });
   }
 });
 

@@ -83,10 +83,10 @@ router.post(
           res.json({ token });
         }
       );
-      // to check on token use jwt.io website 
+      // to check on token use jwt.io website
     } catch (err) {
       console.error(err.message);
-      res.status(500).send('SERVER ERROR');
+      res.status(500).send({ msg: 'Server Error' });
     }
   }
 );
