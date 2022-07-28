@@ -14,7 +14,7 @@ app.use(express.json());
 app.use('/user', require('./routes/users'));
 app.use('/auth', require('./routes/auth'));
 app.use('/profile', require('./routes/profile'));
-app.use('/posts', require('./routes/posts'));
+app.use('/post', require('./routes/posts'));
 
 // if the enviroment PORT variable is not set (example in heroku env when deploying) then use 5000
 const PORT = process.env.PORT || 5000;
