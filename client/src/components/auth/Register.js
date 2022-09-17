@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import{Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { setAlert } from '../../actions/alert-action';
+import PropTypes from 'prop-types';
 
-export const Register = () => {
+const Register = ({ setAlert }) => {
   //use state variable scan be accessed from anywhere
   const [formData, setFormData] = useState({
     name: '',
@@ -16,11 +19,12 @@ export const Register = () => {
   // to be use on every field
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
-  
+
   const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== password2) {
       console.log('Passwords donot match');
+      setAlert('Passwords donot match', 'danger');
     } else {
       const newUser = { name, email, password };
       try {
@@ -41,7 +45,7 @@ export const Register = () => {
   };
 
   return (
-    <section className='container'>
+    <section>
       <h1 className='large text-primary'>Sign Up</h1>
       <p className='lead'>
         <i className='fas fa-user'></i> Create Your Account
@@ -99,3 +103,12 @@ export const Register = () => {
     </section>
   );
 };
+
+Register.prototype = {
+  // ptfr ( is a shortcut for is required)
+  setAlert: PropTypes.func.isRequired,
+};
+//params get any state you want to map
+//params object with any actions you want to use
+export default connect(null, { setAlert })(Register);
+// this is going to be on the props for register method

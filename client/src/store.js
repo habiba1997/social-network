@@ -1,5 +1,5 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { applyMiddleware } from 'redux';
+// import { configureStore } from '@reduxjs/toolkit';
+import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers/index';
@@ -55,19 +55,18 @@ const middleware = [thunk];
 //   enhancers?: StoreEnhancer[] | ConfigureEnhancersCallback
 // }
 
-const configureStoreOptions = {
-  reducer: rootReducer,
-  devtools: true,
-  preloadedState: initialState,
-  enhancers: composeWithDevTools(applyMiddleware(...middleware)),
-};
+// const configureStoreOptions = {
+//   reducer: rootReducer,
+//   preloadedState: initialState,
+//   enhancers: composeWithDevTools(applyMiddleware(...middleware)),
+// };
 
 //A friendly abstraction over the standard Redux createStore function that adds good defaults to the store setup for a better development experience.
-const store = configureStore(configureStoreOptions);
-// const store = createStore(
-//   rootReducer,
-//   initialState,
-//   composeWithDevTools(applyMiddleware(...middleware))
-// );
+// const store = configureStore(configureStoreOptions);
+const store = createStore(
+  rootReducer,
+  initialState,
+  composeWithDevTools(applyMiddleware(...middleware))
+);
 
 export default store;
