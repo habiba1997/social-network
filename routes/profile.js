@@ -27,7 +27,7 @@ router.get('/me', auth, async (req, res) => {
     res.json(profile);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send({ msg: 'Server Error' });
+    res.status(500).send({ errors: [{ msg: 'Server Error' }] });
   }
 });
 
@@ -99,7 +99,7 @@ router.post(
       res.json(profile);
     } catch (err) {
       console.error(err.message);
-      return res.status(500).send({ msg: 'Server Error' });
+      return res.status(500).send({ errors: [{ msg: 'Server Error' }] });
     }
   }
 );
@@ -113,7 +113,7 @@ router.get('/', async (req, res) => {
     res.json(profiles);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send({ msg: 'Server Error' });
+    res.status(500).send({ errors: [{ msg: 'Server Error' }] });
   }
 });
 
@@ -154,7 +154,7 @@ router.delete('/', auth, async (req, res) => {
     res.json({ msg: 'User deleted' });
   } catch (err) {
     console.error(err.message);
-    res.status(500).send({ msg: 'Server Error' });
+    res.status(500).send({ errors: [{ msg: 'Server Error' }] });
   }
 });
 
@@ -197,7 +197,7 @@ router.put(
       res.json(profile);
     } catch (err) {
       console.error(err.message);
-      res.status(500).send({ msg: 'Server Error' });
+      res.status(500).send({ errors: [{ msg: 'Server Error' }] });
     }
   }
 );
@@ -260,7 +260,7 @@ router.put(
       res.json(profile);
     } catch (err) {
       console.error(err.message);
-      res.status(500).send({ msg: 'Server Error' });
+      res.status(500).send({ errors: [{ msg: 'Server Error' }] });
     }
   }
 );
