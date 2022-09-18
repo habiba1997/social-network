@@ -1,0 +1,2 @@
+for proxy json added in package.json file:
+it helps for me to not always add axios.get("http://localhost:5000/api") but rather just axios.get("/api)

@@ -17,7 +17,7 @@ router.get('/', auth, async (req, res) => {
     res.json(user);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send({ msg: 'Server Error' });
+    res.status(500).send({ errors: [{ msg: 'Server Error' }] });
   }
 });
 
@@ -48,7 +48,8 @@ router.post(
           .json({ errors: [{ msg: 'Invalid Credentials' }] });
       }
 
-      const isMatch = bcrypt.compare(password, user.password);
+      const isMatch = await bcrypt.compare(password, user.password);
+    
       if (!isMatch) {
         return res
           .status(400)
@@ -77,7 +78,7 @@ router.post(
       // to check on token use jwt.io website
     } catch (err) {
       console.error(err.message);
-      res.status(500).send({ msg: 'Server Error' });
+      res.status(500).send({ errors: [{ msg: 'Server Error' }] });
     }
   }
 );
