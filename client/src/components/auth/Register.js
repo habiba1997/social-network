@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alert-action';
+import { register } from '../../actions/auth-action';
 import PropTypes from 'prop-types';
 
-const Register = ({ setAlert }) => {
+const Register = ({ setAlert, register, isAuthenticated }) => {
   //use state variable scan be accessed from anywhere
   const [formData, setFormData] = useState({
     name: '',
@@ -23,26 +23,15 @@ const Register = ({ setAlert }) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== password2) {
-      console.log('Passwords donot match');
       setAlert('Passwords donot match', 'danger');
     } else {
-      const newUser = { name, email, password };
-      try {
-        const config = {
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-          },
-          crossDomain: true,
-        };
-        const body = JSON.stringify(newUser);
-        const res = await axios.post('/user', body, config);
-        console.log(res.data);
-      } catch (e) {
-        console.log(e.response.data);
-      }
+      await register({ name, email, password });
     }
   };
+
+  if (isAuthenticated) {
+    return <Navigate to='/dashboard' />;
+  }
 
   return (
     <section>
@@ -107,8 +96,15 @@ const Register = ({ setAlert }) => {
 Register.prototype = {
   // ptfr ( is a shortcut for is required)
   setAlert: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
 };
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
 //params get any state you want to map
 //params object with any actions you want to use
-export default connect(null, { setAlert })(Register);
+export default connect(mapStateToProps, { setAlert, register })(Register);
 // this is going to be on the props for register method
