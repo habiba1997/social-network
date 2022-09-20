@@ -7,7 +7,7 @@ import {
   AUTH_ERROR,
   LOGOUT,
 } from '../actions/types';
-const initilState = {
+const initialState = {
   token: localStorage.getItem('token'),
   isAuthenticated: null,
   loading: false,
@@ -15,7 +15,7 @@ const initilState = {
 };
 
 // register user
-const AuthReducer = (state = initilState, action) => {
+const AuthReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {

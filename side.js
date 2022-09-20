@@ -4,13 +4,13 @@ const express = require('express');
 const app = express();
 
 app.use((req, res, next) => {
-  console.log('Time:', Date.now());
+  log('Time:', Date.now());
   next();
 });
 
 // This example shows a middleware function mounted on the /user/:id path. The function is executed for any type of HTTP request on the /user/:id path.
 
 app.use('/user/:id', (req, res, next) => {
-  console.log('Request Type:', req.method);
+  log('Request Type:', req.method);
   next();
 });

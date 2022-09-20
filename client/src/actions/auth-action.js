@@ -10,7 +10,7 @@ import {
 import axios from 'axios';
 import { setAlert } from './alert-action';
 import setAuthToken from '../helper/setAuthToken';
-import { useNavigate } from 'react-router-dom';
+require('react-dom');
 
 const config = {
   headers: {
@@ -91,5 +91,4 @@ export const logout = () => (dispatch) => {
   dispatch({
     type: LOGOUT,
   });
-  useNavigate()('/login');
 };
