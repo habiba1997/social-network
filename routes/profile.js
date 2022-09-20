@@ -71,7 +71,9 @@ router.post(
     if (githubusername) profileFields.githubusername = githubusername;
 
     if (skills) {
-      profileFields.skills = skills.split(',').map((skill) => skill.trim());
+      profileFields.skills = Array.isArray(skills)
+        ? skills
+        : skills.split(',').map((skill) => skill.trim());
     }
     // Build profileFields.social object
     profileFields.social = { youtube, twitter, instagram, linkedin, facebook };
@@ -99,7 +101,7 @@ router.post(
       res.json(profile);
     } catch (err) {
       console.error(err.message);
-      return res.status(500).send({ errors: [{ msg: 'Server Error' }] });
+      return res.status(500).send({ msg: 'Server Error' });
     }
   }
 );

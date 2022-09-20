@@ -33,7 +33,7 @@ export const getMyProfile = () => async (dispatch) => {
 };
 
 export const createOrUpdateProfile =
-  (formData, history, update = false) =>
+  (formData, navigate, update = false) =>
   async (dispatch) => {
     // I am supposed to be already logged in and the token is set in axios
     try {
@@ -49,7 +49,7 @@ export const createOrUpdateProfile =
       );
 
       if (!update) {
-        // navigate('/dashboard');
+        navigate('/dashboard');
       }
     } catch (err) {
       dispatch({

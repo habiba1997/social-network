@@ -10,6 +10,8 @@ import setAuthToken from './helper/setAuthToken';
 import { loadUser } from './actions/auth-action';
 import PrivateRoute from './components/route/PrivateRoute';
 import Dashboard from './components/dashboard/Dashboard';
+import CreateProfile from './components/profile/CreateProfile';
+import EditProfile from './components/profile/EditProfile';
 
 //Redux
 import { Provider } from 'react-redux';
@@ -47,6 +49,14 @@ const App = () => {
               <Route
                 path='dashboard'
                 element={<PrivateRoute component={Dashboard} />}
+              />
+              <Route
+                path='create-profile'
+                element={<PrivateRoute component={CreateProfile} />}
+              />
+              <Route
+                path='edit-profile'
+                element={<PrivateRoute component={EditProfile} />}
               />
             </Routes>
           </section>
