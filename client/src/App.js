@@ -12,7 +12,8 @@ import PrivateRoute from './components/route/PrivateRoute';
 import Dashboard from './components/dashboard/Dashboard';
 import CreateProfile from './components/profile/CreateProfile';
 import EditProfile from './components/profile/EditProfile';
-
+import addExperience from './components/profile/AddExperience';
+import addEducation from './components/profile/AddEducation';
 //Redux
 import { Provider } from 'react-redux';
 import store from './store';
@@ -57,6 +58,14 @@ const App = () => {
               <Route
                 path='edit-profile'
                 element={<PrivateRoute component={EditProfile} />}
+              />
+              <Route
+                path='add-experience'
+                element={<PrivateRoute component={addExperience} />}
+              />
+              <Route
+                path='add-education'
+                element={<PrivateRoute component={addEducation} />}
               />
             </Routes>
           </section>

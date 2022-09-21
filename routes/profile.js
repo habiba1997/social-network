@@ -149,6 +149,7 @@ router.delete('/me', auth, async (req, res) => {
     // Remove profile
     // Remove user
     await Promise.all([
+      Post.deleteMany({ user: req.user.id }),
       Profile.findOneAndRemove({ user: req.user.id }),
       User.findOneAndRemove({ _id: req.user.id }),
     ]);
@@ -156,7 +157,7 @@ router.delete('/me', auth, async (req, res) => {
     res.json({ msg: 'User deleted' });
   } catch (err) {
     console.error(err.message);
-    res.status(500).send({ errors: [{ msg: 'Server Error' }] });
+    res.status(500).send({ msg: 'Server Error' });
   }
 });
 

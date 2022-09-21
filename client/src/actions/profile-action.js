@@ -3,7 +3,7 @@ import {
   CLEAR_PROFILE,
   PROFILE_ERROR,
   UPDATE_PROFILE,
-  LOGOUT,
+  ACCOUNT_DELETED,
 } from './types';
 import axios from 'axios';
 import { setAlert } from './alert-action';
@@ -35,7 +35,6 @@ export const getMyProfile = () => async (dispatch) => {
 export const createOrUpdateProfile =
   (formData, navigate, update = false) =>
   async (dispatch) => {
-    // I am supposed to be already logged in and the token is set in axios
     try {
       const res = await axios.post('/profile', formData, config);
 
@@ -59,13 +58,101 @@ export const createOrUpdateProfile =
     }
   };
 
+export const addExperience = (formData, navigate) => async (dispatch) => {
+  try {
+    const res = await axios.put('/profile/experience', formData, config);
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data,
+    });
+
+    dispatch(setAlert('Experinece added', 'success'));
+
+    navigate('/dashboard');
+  } catch (err) {
+    const errors = err.response.data.errors;
+
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+    }
+
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: errors,
+    });
+  }
+};
+
+export const deleteExperience = (id) => async (dispatch) => {
+  try {
+    const endpoint = '/profile/experience/' + id;
+    const res = await axios.delete(endpoint);
+
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data,
+    });
+
+    dispatch(setAlert('Experinece Deleted', 'success'));
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+export const addEducation = (formData, navigate) => async (dispatch) => {
+  try {
+    const res = await axios.put('/profile/education', formData, config);
+
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data,
+    });
+
+    dispatch(setAlert('Education added', 'success'));
+
+    navigate('/dashboard');
+  } catch (err) {
+    const errors = err.response.data.errors;
+
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+    }
+
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: errors,
+    });
+  }
+};
+
+export const deleteEducation = (id) => async (dispatch) => {
+  try {
+    const endpoint = '/profile/education/' + id;
+    const res = await axios.delete(endpoint);
+
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data,
+    });
+
+    dispatch(setAlert('Education Deleted', 'success'));
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
 // delete my whole account
 export const deleteAccount = () => async (dispatch) => {
-  // I am supposed to be already logged in and the token is set in axios
-  try {
+  if(window.confirm('Are you sure? This can NOT be undone!')){
+    try {
     await axios.delete('/profile/me');
     dispatch({ type: CLEAR_PROFILE });
-    dispatch({ type: LOGOUT });
+    dispatch({ type: ACCOUNT_DELETED });
     dispatch(setAlert('Your account has been permanently deleted'));
   } catch (err) {
     dispatch({
@@ -73,4 +160,5 @@ export const deleteAccount = () => async (dispatch) => {
       payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
+  }  
 };
