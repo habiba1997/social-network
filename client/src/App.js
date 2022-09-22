@@ -10,6 +10,12 @@ import setAuthToken from './helper/setAuthToken';
 import { loadUser } from './actions/auth-action';
 import PrivateRoute from './components/route/PrivateRoute';
 import Dashboard from './components/dashboard/Dashboard';
+import CreateProfile from './components/profile/CreateProfile';
+import EditProfile from './components/profile/EditProfile';
+import addExperience from './components/profile/AddExperience';
+import addEducation from './components/profile/AddEducation';
+import Profiles from './components/profile/profiles/Profiles';
+import Profile from './components/profile/component/Profile';
 
 //Redux
 import { Provider } from 'react-redux';
@@ -39,14 +45,33 @@ const App = () => {
           <Navbar />
           <section className='container'>
             <Alert />
+            {/* Its most basic responsibility is to render some UI when its path matches the current URL. */}
             {/* switch can only have routes so we will put itt below navbar */}
             <Routes>
               <Route path='/' element={<Landing />} />
               <Route path='/login' element={<Login />} />
+              <Route path='/profiles' element={<Profiles />} />
+              <Route path='/profiles/:id' element={<Profile />} />
               <Route path='/register' element={<Register />} />
               <Route
                 path='dashboard'
                 element={<PrivateRoute component={Dashboard} />}
+              />
+              <Route
+                path='create-profile'
+                element={<PrivateRoute component={CreateProfile} />}
+              />
+              <Route
+                path='edit-profile'
+                element={<PrivateRoute component={EditProfile} />}
+              />
+              <Route
+                path='add-experience'
+                element={<PrivateRoute component={addExperience} />}
+              />
+              <Route
+                path='add-education'
+                element={<PrivateRoute component={addEducation} />}
               />
             </Routes>
           </section>

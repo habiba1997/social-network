@@ -5,9 +5,10 @@ import {
   LOGIN_SUCCESS,
   USER_LOADED,
   AUTH_ERROR,
+  ACCOUNT_DELETED,
   LOGOUT,
 } from '../actions/types';
-const initilState = {
+const initialState = {
   token: localStorage.getItem('token'),
   isAuthenticated: null,
   loading: false,
@@ -15,7 +16,7 @@ const initilState = {
 };
 
 // register user
-const AuthReducer = (state = initilState, action) => {
+const AuthReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
@@ -38,6 +39,7 @@ const AuthReducer = (state = initilState, action) => {
     case REGISTER_FAIL:
     case LOGIN_FAIL:
     case AUTH_ERROR:
+    case ACCOUNT_DELETED:
     case LOGOUT:
       localStorage.removeItem('token');
       return {

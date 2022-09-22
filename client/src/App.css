@@ -508,6 +508,7 @@ button {
     margin-top: 8rem;
   }
 
+  /* hide when small */
   .hide-sm {
     display: none;
   }

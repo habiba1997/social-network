@@ -27,7 +27,7 @@ router.get('/me', auth, async (req, res) => {
     res.json(profile);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send({ errors: [{ msg: 'Server Error' }] });
+    res.status(500).send({ msg: 'Server Error' });
   }
 });
 
@@ -71,7 +71,9 @@ router.post(
     if (githubusername) profileFields.githubusername = githubusername;
 
     if (skills) {
-      profileFields.skills = skills.split(',').map((skill) => skill.trim());
+      profileFields.skills = Array.isArray(skills)
+        ? skills
+        : skills.split(',').map((skill) => skill.trim());
     }
     // Build profileFields.social object
     profileFields.social = { youtube, twitter, instagram, linkedin, facebook };
@@ -99,7 +101,7 @@ router.post(
       res.json(profile);
     } catch (err) {
       console.error(err.message);
-      return res.status(500).send({ errors: [{ msg: 'Server Error' }] });
+      return res.status(500).send({ msg: 'Server Error' });
     }
   }
 );
@@ -113,7 +115,7 @@ router.get('/', async (req, res) => {
     res.json(profiles);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send({ errors: [{ msg: 'Server Error' }] });
+    res.status(500).send({ msg: 'Server Error' });
   }
 });
 
@@ -134,19 +136,20 @@ router.get('/user/:user_id', async ({ params: { user_id } }, res) => {
     if (err.kind === 'ObjectId') {
       return res.status(400).json({ msg: 'Profile not found' });
     }
-    return res.status(500).json({ msg: { msg: 'Server Error' } });
+    return res.status(500).json({ msg: 'Server Error' });
   }
 });
 
-// @route    DELETE api/profile
+// @route    DELETE /profile/me
 // @desc     Delete profile, user & posts
 // @access   Private
-router.delete('/', auth, async (req, res) => {
+router.delete('/me', auth, async (req, res) => {
   try {
     // Remove user posts
     // Remove profile
     // Remove user
     await Promise.all([
+      Post.deleteMany({ user: req.user.id }),
       Profile.findOneAndRemove({ user: req.user.id }),
       User.findOneAndRemove({ _id: req.user.id }),
     ]);
@@ -154,7 +157,7 @@ router.delete('/', auth, async (req, res) => {
     res.json({ msg: 'User deleted' });
   } catch (err) {
     console.error(err.message);
-    res.status(500).send({ errors: [{ msg: 'Server Error' }] });
+    res.status(500).send({ msg: 'Server Error' });
   }
 });
 
