@@ -17,6 +17,7 @@ import addEducation from './components/profile/AddEducation';
 import Profiles from './components/profile/profiles/Profiles';
 import Profile from './components/profile/component/Profile';
 import Posts from './components/posts/Posts';
+import NotFound from './components/layouts/NotFound';
 
 //Redux
 import { Provider } from 'react-redux';
@@ -83,6 +84,7 @@ const App = () => {
                 path='/post/:id'
                 element={<PrivateRoute component={Post} />}
               />
+              <Route path='/*' element={<NotFound />} />
             </Routes>
           </section>
         </Fragment>
