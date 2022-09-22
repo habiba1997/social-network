@@ -16,10 +16,12 @@ import addExperience from './components/profile/AddExperience';
 import addEducation from './components/profile/AddEducation';
 import Profiles from './components/profile/profiles/Profiles';
 import Profile from './components/profile/component/Profile';
+import Posts from './components/posts/Posts';
 
 //Redux
 import { Provider } from 'react-redux';
 import store from './store';
+import Post from './components/posts/post/Post';
 
 // check for token in LS when app first runs
 if (localStorage.token) {
@@ -72,6 +74,14 @@ const App = () => {
               <Route
                 path='add-education'
                 element={<PrivateRoute component={addEducation} />}
+              />
+              <Route
+                path='/posts'
+                element={<PrivateRoute component={Posts} />}
+              />
+              <Route
+                path='/post/:id'
+                element={<PrivateRoute component={Post} />}
               />
             </Routes>
           </section>
