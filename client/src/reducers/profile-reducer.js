@@ -30,13 +30,14 @@ const ProfileReducer = (state = initialState, action) => {
       return {
         ...state,
         profiles: payload,
-        loading:false
-      }
+        loading: false,
+      };
     case PROFILE_ERROR:
+      console.log('reducer');
       return {
         ...state,
         profile: null,
-        loading: null,
+        loading: false,
         error: payload,
       };
     case CLEAR_PROFILE:

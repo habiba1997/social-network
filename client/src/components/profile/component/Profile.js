@@ -21,7 +21,7 @@ const Profile = ({ profile: { profile, loading }, auth, getProfileById }) => {
   ) : (
     <Fragment>
       <Link to='/profiles' className='btn btn-light'>
-        Back to Porfiles
+        Back to Profiles
       </Link>
       {auth.isAuthenticated &&
         !auth.loading &&
