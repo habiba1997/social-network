@@ -14,6 +14,9 @@ import CreateProfile from './components/profile/CreateProfile';
 import EditProfile from './components/profile/EditProfile';
 import addExperience from './components/profile/AddExperience';
 import addEducation from './components/profile/AddEducation';
+import Profiles from './components/profile/profiles/Profiles';
+import Profile from './components/profile/component/Profile';
+
 //Redux
 import { Provider } from 'react-redux';
 import store from './store';
@@ -42,10 +45,13 @@ const App = () => {
           <Navbar />
           <section className='container'>
             <Alert />
+            {/* Its most basic responsibility is to render some UI when its path matches the current URL. */}
             {/* switch can only have routes so we will put itt below navbar */}
             <Routes>
               <Route path='/' element={<Landing />} />
               <Route path='/login' element={<Login />} />
+              <Route path='/profiles' element={<Profiles />} />
+              <Route path='/profiles/:id' element={<Profile />} />
               <Route path='/register' element={<Register />} />
               <Route
                 path='dashboard'

@@ -115,7 +115,7 @@ router.get('/', async (req, res) => {
     res.json(profiles);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send({ errors: [{ msg: 'Server Error' }] });
+    res.status(500).send({ msg: 'Server Error' });
   }
 });
 
@@ -136,7 +136,7 @@ router.get('/user/:user_id', async ({ params: { user_id } }, res) => {
     if (err.kind === 'ObjectId') {
       return res.status(400).json({ msg: 'Profile not found' });
     }
-    return res.status(500).json({ msg: { msg: 'Server Error' } });
+    return res.status(500).json({ msg: 'Server Error' });
   }
 });
 
