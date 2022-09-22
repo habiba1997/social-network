@@ -3,7 +3,7 @@ const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const auth = require('../middleware/auth');
 
-const Post = require('../models/post');
+const Post = require('../models/Post');
 const User = require('../models/user');
 
 // @route    POST posts
